@@ -130,7 +130,7 @@ template libusbLe16ToCpu*(x: uint16): uint16 =
 
 
 type
-  LibusbClassCode* {.pure.} = enum
+  LibusbClassCode* {.pure, size: sizeof(cint).} = enum
     ## Enumerates USB device class codes.
     perInterface = 0,
       ## each interface has its own class
@@ -168,7 +168,7 @@ type
       ## Application class
     vendorSpec = 0xFF
       ## Class is vendor-specific
-
+    
   LibusbDescriptorType* {.pure, size: sizeof(uint8).} = enum
     ## Enumerates device descriptor types.
     device = 0x01,
@@ -1113,7 +1113,7 @@ proc libusbStrError*(errcode: cint): cstring
 
 
 proc libusbGetDeviceList*(ctx: ptr LibusbContext;
-  list: ptr ptr LibusbDeviceArray): csize
+  list: ptr ptr LibusbDeviceArray): csize_t
   {.cdecl, libusbBinding, importc: "libusb_get_device_list".}
   ## Get a list of USB devices currently attached to the system.
   ##
@@ -2454,8 +2454,8 @@ proc libusbGetIsoPacketBufferSimple*(transfer: ptr LibusbTransfer;
 proc libusbControlTransfer*(devHandle: ptr LibusbDeviceHandle;
   bmRequestType: uint8; request: LibusbStandardRequest;
   value: uint16; index: uint16; data: ptr cuchar; length: uint16;
-  timeout: cuint): cint
-  {.cdecl, libusbBinding, importc: "libusb_control_transfer".}
+  timeout: cuint
+): cint {.cdecl, libusbBinding, importc: "libusb_control_transfer".}
   ## Perform a USB control transfer.
   ##
   ## devHandle
@@ -2621,8 +2621,13 @@ proc libusbGetDescriptor*(dev: ptr LibusbDeviceHandle; descType: uint8;
     1000)
 
 
-proc libusbGetStringDescriptor*(dev: ptr LibusbDeviceHandle; descIndex: uint8;
-  langid: uint16; data: ptr cuchar; length: cint): cint {.inline.} =
+proc libusbGetStringDescriptor*(
+    dev: ptr LibusbDeviceHandle,
+    descIndex: uint8,
+    langid: uint16,
+    data: ptr cuchar,
+    length: cint
+): cint {.inline.} =
   ## Retrieve a descriptor from a device.
   ##
   ## dev
@@ -2848,8 +2853,7 @@ proc libusbHandleEvents*(ctx: ptr LibusbContext): cint
   ## to avoid race conditions.
 
 
-proc libusbHandleEventsTimeoutCompleted*(ctx: ptr LibusbContext;
-  tv: ptr LibusbTimeval; completed: ptr cint): cint
+proc libusbHandleEventsTimeoutCompleted*(ctx: ptr LibusbContext; tv: ptr LibusbTimeval; completed: ptr cint): cint
   {.cdecl, libusbBinding, importc: "libusb_handle_events_timeout_completed".}
   ## Handle any pending events.
   ##
@@ -2879,8 +2883,8 @@ proc libusbHandleEventsTimeoutCompleted*(ctx: ptr LibusbContext;
   ## specific transfer.
 
 
-proc libusbHandleEventsCompleted*(ctx: ptr LibusbContext; completed: ptr cint):
-  cint {.cdecl, libusbBinding, importc: "libusb_handle_events_completed".}
+proc libusbHandleEventsCompleted*(ctx: ptr LibusbContext; completed: ptr cint): cint 
+  {.cdecl, libusbBinding, importc: "libusb_handle_events_completed".}
   ## Handle any pending events in blocking mode.
   ##
   ## ctx
