@@ -14,7 +14,7 @@
 #define HAVE_ASM_TYPES_H 1
 
 /* Define to 1 if you have the `clock_gettime' function. */
-#define HAVE_CLOCK_GETTIME 1
+// #define HAVE_CLOCK_GETTIME 1
 
 /* Define to 1 if you have the declaration of `EFD_CLOEXEC', and to 0 if you
    don't. */
@@ -54,10 +54,10 @@
 #define HAVE_PIPE2 1
 
 /* Define to 1 if you have the `pthread_condattr_setclock' function. */
-#define HAVE_PTHREAD_CONDATTR_SETCLOCK 1
+#undef HAVE_PTHREAD_CONDATTR_SETCLOCK
 
 /* Define to 1 if you have the `pthread_setname_np' function. */
-#define HAVE_PTHREAD_SETNAME_NP 1
+#undef HAVE_PTHREAD_SETNAME_NP
 
 /* Define to 1 if you have the `pthread_threadid_np' function. */
 /* #undef HAVE_PTHREAD_THREADID_NP */
@@ -120,10 +120,10 @@
 #define PACKAGE_VERSION "1.0.24"
 
 /* Define to 1 if compiling for a POSIX platform. */
-#define PLATFORM_POSIX 1
+#undef PLATFORM_POSIX
 
 /* Define to 1 if compiling for a Windows platform. */
-/* #undef PLATFORM_WINDOWS */
+#define PLATFORM_WINDOWS
 
 /* Define to the attribute for enabling parameter checks on printf-like
    functions. */

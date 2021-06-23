@@ -83,12 +83,11 @@ else:
     const windowsConfig = joinPath(coSourcePath, "windows")
     {.
       passC: "-I"&windowsConfig,
-      compile: libusbOsSourcePath & "/null_usb.c",
       compile: libusbOsSourcePath & "/events_windows.c",
       compile: libusbOsSourcePath & "/threads_windows.c",
       compile: libusbOsSourcePath & "/windows_common.c",
-      compile: libusbOsSourcePath & "/windwos_usbdk.c",
-      compile: libusbOsSourcePath & "/windwos_winusb.c",
+      compile: libusbOsSourcePath & "/windows_usbdk.c",
+      compile: libusbOsSourcePath & "/windows_winusb.c",
     .}
   else:
     {.error: "libusb does not support this platform".}
