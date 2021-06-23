@@ -1,0 +1,12 @@
+{
+  "files.associations": {
+    "libusbi.h": "c",
+    "stdlib.h": "c",
+    "events_posix.h": "c",
+    "events_windows.h": "c",
+    "errno.h": "c",
+    "libuvc_internal.h": "c",
+    "libuvc.h": "c",
+    "stdio.h": "c"
+  }
+}
